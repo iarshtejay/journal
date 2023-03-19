@@ -140,13 +140,15 @@ button:focus {
     background-color: whitesmoke;
 }
 
-.delete-note {
-    cursor: pointer;
-    background-color: #ffffff;
+.delete-btn {
+    display: none;
+    background: none;
     border: none;
-    color: #ff006a;
-    border-radius: 40px;
-    height: 40px;
-    width: 40px;
-    font-size: 25px;
+}
+
+.title:hover > .delete-btn {
+    display: block;
+    color: white;
+    font-weight: bold;
+    font-size: large;
 }

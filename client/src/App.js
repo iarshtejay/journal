@@ -47,15 +47,15 @@ export default function App() {
     setNotes((oldNotes) => {
       const newNotes = [];
 
-      oldNotes.map(oldNote => {
-        if(oldNote.id === currentNoteId){
-          newNotes.unshift({...oldNote, body: text})
-        }else{
-          newNotes.push(oldNote)
+      oldNotes.map((oldNote) => {
+        if (oldNote.id === currentNoteId) {
+          newNotes.unshift({ ...oldNote, body: text });
+        } else {
+          newNotes.push(oldNote);
         }
-      })
+      });
       return newNotes;
-    })
+    });
 
     // This works but does not make the current note the first one
     // setNotes((oldNotes) =>
@@ -75,14 +75,17 @@ export default function App() {
     );
   }
 
-  function deleteNote() {
+  function deleteNote(event, noteId) {
+    console.log(event)
+    event.stopPropagation()
     setNotes((oldNotes) => {
-      const delIndex = oldNotes.findIndex((note) => note.id === currentNoteId);
-      if (delIndex > -1) {
-        oldNotes.splice(delIndex, 1);
-        setCurrentNoteId((notes[0] && notes[0].id) || "");
+      const afterDeletion = oldNotes.filter(
+        (note) => note.id !== noteId
+      );
+      if(noteId === currentNoteId) {
+        setCurrentNoteId((noteId) => afterDeletion[0]|| "");
       }
-      return oldNotes;
+      return afterDeletion;
     });
   }
 
