@@ -7,6 +7,10 @@ import { nanoid } from "nanoid";
 import "./style.css";
 
 export default function App() {
+  /* Lazy loading of a state:
+   * Pass a function and wrap the expensive code inside a function during state initialization
+   * This will ensure that the code gets executed only once even when React re-renders
+   * */
   const [notes, setNotes] = React.useState(() => JSON.parse(localStorage.getItem("notes")) || []);
   const [currentNoteId, setCurrentNoteId] = React.useState(
     (notes[0] && notes[0].id) || ""
