@@ -11,7 +11,9 @@ export default function App() {
    * Pass a function and wrap the expensive code inside a function during state initialization
    * This will ensure that the code gets executed only once even when React re-renders
    * */
-  const [notes, setNotes] = React.useState(() => JSON.parse(localStorage.getItem("notes")) || []);
+  const [notes, setNotes] = React.useState(
+    () => JSON.parse(localStorage.getItem("notes")) || []
+  );
   const [currentNoteId, setCurrentNoteId] = React.useState(
     (notes[0] && notes[0].id) || ""
   );
@@ -19,6 +21,18 @@ export default function App() {
   React.useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
+
+  function moveCurrentToFront() {
+    setNotes((oldNotes) => {
+      const currNoteIndex = oldNotes.findIndex(
+        (note) => note.id === currentNoteId
+      );
+      if (currNoteIndex > -1) {
+        oldNotes.unshift(oldNotes.splice(currNoteIndex, 1)[0]);
+      }
+      return oldNotes;
+    });
+  }
 
   function createNewNote() {
     const newNote = {
@@ -30,13 +44,27 @@ export default function App() {
   }
 
   function updateNote(text) {
-    setNotes((oldNotes) =>
-      oldNotes.map((oldNote) => {
-        return oldNote.id === currentNoteId
-          ? { ...oldNote, body: text }
-          : oldNote;
+    setNotes((oldNotes) => {
+      const newNotes = [];
+
+      oldNotes.map(oldNote => {
+        if(oldNote.id === currentNoteId){
+          newNotes.unshift({...oldNote, body: text})
+        }else{
+          newNotes.push(oldNote)
+        }
       })
-    );
+      return newNotes;
+    })
+
+    // This works but does not make the current note the first one
+    // setNotes((oldNotes) =>
+    //   oldNotes.map((oldNote) => {
+    //     return oldNote.id === currentNoteId
+    //       ? { ...oldNote, body: text }
+    //       : oldNote;
+    //   })
+    // );
   }
 
   function findCurrentNote() {
