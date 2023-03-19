@@ -4,6 +4,6 @@
 2. The app uses local storage for persistence
 
 Hosted at: [Notes - Netlify](https://superb-cajeta-872ab2.netlify.app/)
-Inspired from the React Course by [Scrimba](https://scrimba.com/learn/learnreact)
+inspired from the React Course by [Scrimba](https://scrimba.com/learn/learnreact)
 
 Enjoy!
