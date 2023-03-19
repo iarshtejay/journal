@@ -12,6 +12,10 @@ export default function Sidebar(props) {
           >
               <h4 className="text-snippet">{(note.body && note.body.length>0)? note.body.split(/\r?\n/)[0] : `Note ${index + 1}`}</h4>
           </div>
+          {note.id === props.currentNote.id?
+                <button className="delete-note" onClick={() => props.deleteNote()}>-</button>
+                :null
+              }
       </div>
   ))
 

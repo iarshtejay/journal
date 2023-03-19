@@ -139,3 +139,14 @@ button:focus {
     align-items: center;
     background-color: whitesmoke;
 }
+
+.delete-note {
+    cursor: pointer;
+    background-color: #ffffff;
+    border: none;
+    color: #ff006a;
+    border-radius: 40px;
+    height: 40px;
+    width: 40px;
+    font-size: 25px;
+}
